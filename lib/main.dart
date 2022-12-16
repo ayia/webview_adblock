@@ -72,47 +72,25 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Ads Content Blocker"),
-          actions: [
-            TextButton(
-              onPressed: () async {
-                contentBlockerEnabled = !contentBlockerEnabled;
-                if (contentBlockerEnabled) {
-                  await webViewController?.setSettings(
-                      settings: InAppWebViewSettings(
-                          contentBlockers: contentBlockers));
-                } else {
-                  await webViewController?.setSettings(
-                      settings: InAppWebViewSettings(contentBlockers: []));
-                }
-                webViewController?.reload();
-
-                setState(() {});
-              },
-              style: TextButton.styleFrom(foregroundColor: Colors.white),
-              child: Text(contentBlockerEnabled ? 'Disable' : 'Enable'),
-            )
-          ],
-        ),
         body: SafeArea(
             child: Column(children: <Widget>[
-          Expanded(
-            child: Stack(
-              children: [
-                InAppWebView(
-                  key: webViewKey,
-                  initialUrlRequest:
-                      URLRequest(url: WebUri('https://www.tomshardware.com/')),
-                  initialSettings:
-                      InAppWebViewSettings(contentBlockers: contentBlockers),
-                  onWebViewCreated: (controller) {
-                    webViewController = controller;
-                  },
-                ),
-              ],
+      Expanded(
+        child: Stack(
+          children: [
+            InAppWebView(
+              key: webViewKey,
+              initialUrlRequest: URLRequest(
+                  url: WebUri(
+                      'https://games.cdn.famobi.com/html5games/o/om-nom-run/v1240/?fg_domain=play.famobi.com&fg_aid=A1000-100&fg_uid=abe80572-560a-444d-baf7-2fa4a7b2c02f&fg_pid=5a106c0b-28b5-48e2-ab01-ce747dda340f&fg_beat=448&original_ref=https%3A%2F%2Fhtml5gam')),
+              initialSettings:
+                  InAppWebViewSettings(contentBlockers: contentBlockers),
+              onWebViewCreated: (controller) {
+                webViewController = controller;
+              },
             ),
-          ),
-        ])));
+          ],
+        ),
+      ),
+    ])));
   }
 }
